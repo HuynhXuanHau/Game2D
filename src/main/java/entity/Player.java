@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 
 import main.GamePanel;
 import main.KeyHandler;
+import object.OBJ_Random;
 
 public class Player extends Entity {
 	GamePanel gp;
@@ -283,6 +284,7 @@ public class Player extends Entity {
 	    gold = 0;
 	    item4 = 0;
 	    item5 = 0;
+		gp.ui.randomImage= gp.obj[5].image;
 	    gp.oBJ.availableItems = new ArrayList<>(Arrays.asList("Shit","Gold","Money","Item4","Item5"));
 	    gp.ui.gameEnded = true;
 	    gp.ui.isTextFieldAdded = false; 

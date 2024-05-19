@@ -15,13 +15,13 @@ public class TileManager {
 	GamePanel gp;
 	public Tile[] tile;
 	public int[][] mapTileNum;
-	KeyHandler keyH ;
+	//KeyHandler keyH ;
 	
 	
 	public TileManager(GamePanel gp) {
 
 		this.gp = gp;
-		this.keyH = gp.keyH;
+	//	this.keyH = gp.keyH;
 		
 		tile = new Tile[1000];
 		mapTileNum = new int[gp.maxHouseCol][gp.maxHouseRow];
@@ -29,7 +29,7 @@ public class TileManager {
 
 	}
 	public void loadInitialMap() {
-		if (keyH.map1) {
+		if (gp.keyH.map1) {
 			getTileImage();
 			loadMap("/res/map/mapp.txt");
 		} else {

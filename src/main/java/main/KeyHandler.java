@@ -13,12 +13,11 @@ public class KeyHandler extends KeyAdapter implements KeyListener {
 	GamePanel gp;
 	public boolean upPressed, downPressed, leftPressed, rightPressed, music= false;
 	public int dem=0;
-	public boolean map1= true;
+	public boolean map1= false;
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
-		int code = e.getKeyCode();
-		settingState(code);
+
 	}
 	
 	
@@ -28,7 +27,6 @@ public class KeyHandler extends KeyAdapter implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		
 		int code = e.getKeyCode();
 		//finishstate
 		if(gp.gameState == gp.finishState) {
@@ -264,11 +262,13 @@ public class KeyHandler extends KeyAdapter implements KeyListener {
 					System.out.println("commandNum = "+ gp.ui.commandNum);
 					map1= true;
 					gp.reloadMap();
+					gp.reloadobj();
 					break;
 				case 1:
 					System.out.println("commandNum = "+ gp.ui.commandNum);
 					map1= false;
 					gp.reloadMap();
+					gp.reloadobj();
 					break;
 			}
 		}

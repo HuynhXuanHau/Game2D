@@ -13,6 +13,14 @@ public class AssetSetter {
 	public AssetSetter(GamePanel gp) {
 		this.gp = gp;
 	}
+
+	public void loadobj() {
+		if (gp.keyH.map1) {
+			setObject();
+		} else {
+			setObject1();
+		}
+	}
 	
 	public void setObject() {
 
@@ -40,6 +48,33 @@ public class AssetSetter {
 		gp.obj[2].houseX = 12*gp.tileSize;
 		gp.obj[2].houseY = 9*gp.tileSize;
 		
+	}
+	public void setObject1() {
+
+		gp.obj[5] = new OBJ_Random();
+		gp.obj[5].houseX = 5 * gp.tileSize;
+		gp.obj[5].houseY = 12 * gp.tileSize;
+
+		gp.obj[0] =new OBJ_Shit();
+		gp.obj[0].houseX = 23*gp.tileSize;
+		gp.obj[0].houseY =14*gp.tileSize;
+
+		gp.obj[3] = new OBJ_Item4();
+		gp.obj[3].houseX = 12*gp.tileSize;
+		gp.obj[3].houseY =18*gp.tileSize;
+
+		gp.obj[4] = new OBJ_Item5();
+		gp.obj[4].houseX = 11*gp.tileSize;
+		gp.obj[4].houseY = 21*gp.tileSize;
+
+		gp.obj[1] = new OBJ_Gold();
+		gp.obj[1].houseX = 16*gp.tileSize;
+		gp.obj[1].houseY = 18*gp.tileSize;
+
+		gp.obj[2] = new OBJ_Money();
+		gp.obj[2].houseX = 12*gp.tileSize;
+		gp.obj[2].houseY = 9*gp.tileSize;
+
 	}
 	
 }

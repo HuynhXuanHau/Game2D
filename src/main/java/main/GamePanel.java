@@ -75,7 +75,8 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 	
 	public void setupGame() {
-		aSetter.setObject();
+	//	aSetter.loadobj();
+		reloadobj();
 	//	playMusic(0);
 		keyH.music = false;
 		gameState = titleState;
@@ -85,6 +86,10 @@ public class GamePanel extends JPanel implements Runnable {
 	public void startGameThread() {
 		gameThread = new Thread(this);
 		gameThread.start();
+	}
+	public void reloadobj() {
+		aSetter.loadobj();
+		repaint();
 	}
 	public void reloadMap() {
 		tileM.loadInitialMap();
