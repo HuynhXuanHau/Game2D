@@ -11,7 +11,6 @@ import javax.imageio.ImageIO;
 
 import main.GamePanel;
 import main.KeyHandler;
-import main.UI;
 
 public class Player extends Entity {
 	GamePanel gp;
@@ -25,26 +24,26 @@ public class Player extends Entity {
 
 
 	
-	public Player(GamePanel gp, Entity entity, KeyHandler keyH, String name) {
-		this.gp = gp;
-		this.entity = entity;
-		this.keyH = keyH;
-		this.name = name ;
-		
-		screenX = gp.screenWidth/2 -(gp.tileSize/2);
-		screenY = gp.screenHeight/2 -(gp.tileSize/2);
-		
-		solidArea = new Rectangle();
-		solidArea.x = 8;
-		solidArea.y = 15;
-		solidAreaDefaultX = solidArea.x;
-		solidAreaDefaultY = solidArea.y;
-		solidArea.width = 31;
-		solidArea.height = 32;
-		
-		setDefaultValues();
-		getPlayerImage();
-	}
+//	public Player(GamePanel gp, Entity entity, KeyHandler keyH, String name) {
+//		this.gp = gp;
+//		this.entity = entity;
+//		this.keyH = keyH;
+//		this.name = name ;
+//
+//		screenX = gp.screenWidth/2 -(gp.tileSize/2);
+//		screenY = gp.screenHeight/2 -(gp.tileSize/2);
+//
+//		solidArea = new Rectangle();
+//		solidArea.x = 8;
+//		solidArea.y = 15;
+//		solidAreaDefaultX = solidArea.x;
+//		solidAreaDefaultY = solidArea.y;
+//		solidArea.width = 31;
+//		solidArea.height = 32;
+//
+//		setDefaultValues();
+//		getPlayerImage();
+//	}
 	public Player(GamePanel gp, Entity entity, KeyHandler keyH) {
 		this.gp = gp;
 		this.entity = entity;
@@ -65,7 +64,9 @@ public class Player extends Entity {
 		setDefaultValues();
 		getPlayerImage();
 	}
-	
+
+
+
 	public void setDefaultValues() {
 		houseX = gp.tileSize * 7;
 		houseY = gp.tileSize * 12;

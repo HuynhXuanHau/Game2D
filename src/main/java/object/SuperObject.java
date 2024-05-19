@@ -1,12 +1,12 @@
 package object;
 
+import main.GamePanel;
+
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.Random;
-
-import main.GamePanel;
 
 public class SuperObject {
 	public BufferedImage image;
@@ -52,4 +52,6 @@ public class SuperObject {
 	public void reset() {
 		this.touched = false;
 	}
+
+
 }

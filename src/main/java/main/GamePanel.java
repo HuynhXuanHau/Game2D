@@ -1,18 +1,13 @@
 package main;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-
-import javax.swing.*;
-
 import entity.Entity;
 import entity.Player;
 import object.SuperObject;
 import tile.TileManager;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class GamePanel extends JPanel implements Runnable {
 	final int originalTileSize =16;
@@ -21,24 +16,25 @@ public class GamePanel extends JPanel implements Runnable {
 	public final int maxScreenCol = 12, maxScreenRow = 8;
 	public final int screenWidth = tileSize * maxScreenCol;
 	public final int screenHeight = tileSize *maxScreenRow;
-	
+	public TileManager tileM;
+
 	//HOUSE SETTING
 	public final int maxHouseCol = 35;
 	public final int maxHouseRow = 35;
 	public final int houseWidth = tileSize * maxHouseCol;
 	public final int houseHeight = tileSize * maxHouseRow;
-	
+
+
 	//FPS
 	int FPS =60;
 	//SYSTEM
-	TileManager tileM = new TileManager(this);
+
 	Entity entity = new Entity();
-	KeyHandler keyH = new KeyHandler(this);
+	public KeyHandler keyH = new KeyHandler(this);
 	Sound se = new Sound();
 	Sound music = new Sound();
-
-
-
+	
+		
 	public Player player = new Player(this, entity, keyH);
 	public CollisionChecker cChecker = new CollisionChecker(this);
 	public AssetSetter aSetter = new AssetSetter(this);
@@ -57,13 +53,15 @@ public class GamePanel extends JPanel implements Runnable {
 	public final int hightState = 3;
 	public final int finishState = 4;
 	public final int sourceState = 5;
+	public final int settingState = 6;
 	public final HightScoreBoard highScoreBoard = new HightScoreBoard();
 	public JTextField playerNameTextField = new JTextField();;
 	public boolean checkNewGame = false;
 	
-	//GameNet
-
+	
+	
 	public GamePanel() {
+		this.tileM = new TileManager(this);
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
 		this.setBackground(Color.BLACK);
 		this.setDoubleBuffered(true);
@@ -78,28 +76,28 @@ public class GamePanel extends JPanel implements Runnable {
 	
 	public void setupGame() {
 		aSetter.setObject();
-		playMusic(0);
+	//	playMusic(0);
 		keyH.music = false;
 		gameState = titleState;
-
-
+		
 	}
 	
 	public void startGameThread() {
 		gameThread = new Thread(this);
 		gameThread.start();
-
 	}
-	
+	public void reloadMap() {
+		tileM.loadInitialMap();
+		repaint();
+	}
 	@Override
 	public void run() {
 		double drawIterval = 1000000000/FPS;
 		long lastTime = System.nanoTime();
 		long currentTime;
 		double delta = 0;
-
+		
 		while(gameThread != null) {
-
 			currentTime = System.nanoTime();
 			delta += (currentTime - lastTime )/ drawIterval;
 			lastTime = currentTime;
@@ -119,17 +117,17 @@ public class GamePanel extends JPanel implements Runnable {
 	public void resetGame() {
 		player.reset();
 	}
-	
+
 	public void paintComponent(Graphics g) {
 	    super.paintComponent(g);
 	     Image offScreenImage2 = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
 	     Image offScreenImage21 = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
-	     
+
 	     //high
 	    if (gameState == hightState ) {
 	        ui.draw((Graphics2D)g);
 	        highScoreBoard.setVisible(true);
-	    } else 
+	    } else
 	    	//finish
 	    	if (gameState == finishState) {
 	    	   playerNameTextField.setVisible(true);
@@ -139,12 +137,12 @@ public class GamePanel extends JPanel implements Runnable {
 	        ui.draw(fsGraphics);
 	        g.drawImage(offScreenImage2, 0, 0, this);
 	        fsGraphics.dispose();
-	    } 
+	    }
 	    else
 	    	//soucre
 	    	if(gameState==sourceState ) {
 	    	highScoreBoard.setVisible(false);
-	    	playerNameTextField.setVisible(false);  
+	    	playerNameTextField.setVisible(false);
 	    	Graphics2D fsGraphics = (Graphics2D) offScreenImage21.getGraphics();
 	    	ui.g2.clearRect(0, 0, getWidth(), getHeight());
 	    	ui.draw(fsGraphics);

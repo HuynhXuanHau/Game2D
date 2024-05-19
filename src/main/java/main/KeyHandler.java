@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -7,15 +8,17 @@ import java.util.ArrayList;
 import dao.HightScoreB;
 import dao.HightScoreDao;
 
-public class KeyHandler implements KeyListener {
+public class KeyHandler extends KeyAdapter implements KeyListener {
 	
 	GamePanel gp;
 	public boolean upPressed, downPressed, leftPressed, rightPressed, music= false;
 	public int dem=0;
+	public boolean map1= true;
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
-		
+		int code = e.getKeyCode();
+		settingState(code);
 	}
 	
 	
@@ -47,7 +50,10 @@ public class KeyHandler implements KeyListener {
 		}else
 		if (gp.gameState == gp.sourceState) {
 			sourceState(code);
-		}
+		}else
+			if(gp.gameState == gp.settingState) {
+				settingState(code);
+			}
 		else
 		//play state 
 		if (code == KeyEvent.VK_W ) {
@@ -123,12 +129,12 @@ public class KeyHandler implements KeyListener {
 		if (code == KeyEvent.VK_W) {
 			gp.ui.commandNum --;
 			if (gp.ui.commandNum <0) {
-				gp.ui.commandNum =4;
+				gp.ui.commandNum =5;
 			}
 		}else
 		if (code == KeyEvent.VK_S) {
 			gp.ui.commandNum ++;
-			if (gp.ui.commandNum >4) {
+			if (gp.ui.commandNum >5) {
 				gp.ui.commandNum =0;
 			}
 		}
@@ -185,6 +191,10 @@ public class KeyHandler implements KeyListener {
 			if (gp.ui.commandNum ==4) {
 				System.exit(0);
 			}
+			if (gp.ui.commandNum ==5) {
+				gp.gameState= gp.settingState;
+			}
+
 		}
 		System.out.println("commandNum = "+ gp.ui.commandNum);
 	}
@@ -236,6 +246,31 @@ public class KeyHandler implements KeyListener {
 		}
 		if(code == KeyEvent.VK_ENTER) {
 			gp.gameState = gp.titleState;
+		}
+	}
+	private void settingState(int code) {
+		if (code == KeyEvent.VK_W) {
+			gp.ui.commandNum = (gp.ui.commandNum -1 + 3) % 3;
+		} else if (code == KeyEvent.VK_S) {
+			gp.ui.commandNum = (gp.ui.commandNum +1) % 3;
+		}
+		if(code == KeyEvent.VK_ENTER) {
+			switch (gp.ui.commandNum) {
+				case 2:
+					System.out.println("commandNum = "+ gp.ui.commandNum);
+					gp.gameState = gp.titleState;
+					break;
+				case 0:
+					System.out.println("commandNum = "+ gp.ui.commandNum);
+					map1= true;
+					gp.reloadMap();
+					break;
+				case 1:
+					System.out.println("commandNum = "+ gp.ui.commandNum);
+					map1= false;
+					gp.reloadMap();
+					break;
+			}
 		}
 	}
 }
