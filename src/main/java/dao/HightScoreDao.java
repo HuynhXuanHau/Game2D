@@ -22,10 +22,12 @@ public class HightScoreDao implements DaoInterface<HightScoreB>{
 		Statement st ;
 		try {
 			c = JDBCUtil.getConnection();
-			String sql = "insert into table2D(Name_Player,Time)"+"values(?,?);";
+			String sql = "INSERT INTO table2D(Name_Player, Time, map) VALUES(?, ?, ?);";
 			PreparedStatement ps = c.prepareStatement(sql);
 			ps.setString(1, hs.getNamePlayer());
 			ps.setString(2, hs.getTime());
+			ps.setString(3, hs.getmap());
+
 			kq= ps.executeUpdate();
 			System.out.println("Ban da thuc thi :" + sql);
 			System.out.println(hs.getNamePlayer());
@@ -49,29 +51,57 @@ public class HightScoreDao implements DaoInterface<HightScoreB>{
 			return 0;
 	}
 
+//	@Override
+//	public ArrayList<HightScoreB> selectAll() {
+//		ArrayList<HightScoreB> ketqua = new ArrayList<HightScoreB>();
+//		try {
+//			Connection c = JDBCUtil.getConnection();
+//			Statement st = c.createStatement();
+//			String sql ="select * from table2D order by Time";
+//			ResultSet rs = st.executeQuery(sql);
+//			while (rs.next()) {
+//				String namePlayer = rs.getString("Name_Player");
+//				String playTime = rs.getString("Time");
+//
+//				HightScoreB hs = new HightScoreB(namePlayer, playTime);
+//				ketqua.add(hs);
+//			}
+//			JDBCUtil.closeConnection(c);
+//
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return ketqua;
+//	}
+
 	@Override
-	public ArrayList<HightScoreB> selectAll() {
-		ArrayList<HightScoreB> ketqua = new ArrayList<HightScoreB>();
+	public ArrayList<HightScoreB> selectAll(String mappp) {
+		return selectByMap(mappp);  // Default to map1 if no specific map is provided
+	}
+
+	public ArrayList<HightScoreB> selectByMap(String map) {
+		ArrayList<HightScoreB> ketqua = new ArrayList<>();
 		try {
 			Connection c = JDBCUtil.getConnection();
-			Statement st = c.createStatement();
-			String sql ="select * from table2D order by Time";
-			ResultSet rs = st.executeQuery(sql);
+			String sql = "SELECT * FROM table2D WHERE map = ? ORDER BY Time";
+			PreparedStatement ps = c.prepareStatement(sql);
+			ps.setString(1, map);
+			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				String namePlayer = rs.getString("Name_Player");
 				String playTime = rs.getString("Time");
-				
-				HightScoreB hs = new HightScoreB(namePlayer, playTime);
+
+				HightScoreB hs = new HightScoreB(namePlayer, playTime,map);
 				ketqua.add(hs);
 			}
 			JDBCUtil.closeConnection(c);
-			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return ketqua;
 	}
+
 
 	@Override
 	public HightScoreB selectById(HightScoreB t) {
