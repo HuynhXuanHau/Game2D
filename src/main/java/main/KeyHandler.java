@@ -14,7 +14,7 @@ public class KeyHandler extends KeyAdapter implements KeyListener {
 	public boolean upPressed, downPressed, leftPressed, rightPressed, music= false;
 	public int dem=0;
 	public boolean map1= false;
-	
+	public String map ="map2";
 	@Override
 	public void keyTyped(KeyEvent e) {
 
@@ -167,18 +167,18 @@ public class KeyHandler extends KeyAdapter implements KeyListener {
 				//gp.drawHighScoreBoard =true;
 				gp.gameState= gp.hightState;
 				gp.highScoreBoard.setVisible(true);
-				ArrayList<HightScoreB> list = HightScoreDao.getInstance().selectAll();	
+				ArrayList<HightScoreB> list = HightScoreDao.getInstance().selectAll(map);
 				int count = list.size();
 				gp.highScoreBoard.model.setRowCount(0);
-				if(count <=10) {
+				if(count <=5) {
 				for (int i = 0; i <= count-1 ; i++) {
 					HightScoreB hsb = list.get(i);
-		           gp.highScoreBoard.model.addRow(new Object[]{String.valueOf(i+1),hsb.getNamePlayer(), hsb.getTime()});
+		           gp.highScoreBoard.model.addRow(new Object[]{String.valueOf(i+1),hsb.getNamePlayer(), hsb.getTime(),hsb.getmap()});
 		        }} else {
-					gp.highScoreBoard.model.addRow(new Object[]{"Places", "Name Player", "Time"});
-					for (int i = 0; i <= 10 ; i++) {
+					//gp.highScoreBoard.model.addRow(new Object[]{"Places", "Name Player", "Time","Map"});
+					for (int i = 0; i <5; i++) {
 						HightScoreB hsb = list.get(i);
-			           gp.highScoreBoard.model.addRow(new Object[]{String.valueOf(i+1),hsb.getNamePlayer(), hsb.getTime()});
+			           gp.highScoreBoard.model.addRow(new Object[]{String.valueOf(i+1),hsb.getNamePlayer(), hsb.getTime(),hsb.getmap()});
 				}
 				}
 			} else
@@ -261,12 +261,14 @@ public class KeyHandler extends KeyAdapter implements KeyListener {
 				case 0:
 					System.out.println("commandNum = "+ gp.ui.commandNum);
 					map1= true;
+					map = "map1";
 					gp.reloadMap();
 					gp.reloadobj();
 					break;
 				case 1:
 					System.out.println("commandNum = "+ gp.ui.commandNum);
 					map1= false;
+					map = "map2";
 					gp.reloadMap();
 					gp.reloadobj();
 					break;

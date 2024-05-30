@@ -23,7 +23,8 @@ public class HandlePlayerName implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		String namePlayer = gp.playerNameTextField.getText();
 		double time = ui.playTime;
-		HightScoreB pla = new HightScoreB(namePlayer, dF.format(time));
+		String map = gp.keyH.map;
+		HightScoreB pla = new HightScoreB(namePlayer, dF.format(time),map);
 		
 		try {
 			HightScoreDao.getInstance().insert(pla);

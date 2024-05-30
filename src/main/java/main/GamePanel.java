@@ -54,7 +54,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public final int finishState = 4;
 	public final int sourceState = 5;
 	public final int settingState = 6;
-	public final HightScoreBoard highScoreBoard = new HightScoreBoard();
+	public final HightScoreBoard highScoreBoard = new HightScoreBoard(this);
 	public JTextField playerNameTextField = new JTextField();;
 	public boolean checkNewGame = false;
 	
@@ -82,7 +82,12 @@ public class GamePanel extends JPanel implements Runnable {
 		gameState = titleState;
 		
 	}
-	
+	public void changeMap(boolean map1) {
+		this.keyH.map1 = map1;
+		tileM.loadMap(map1 ? "/res/map/mapp.txt" : "/res/map/mapp2.txt");
+		highScoreBoard.loadHighScores(map1 ? "map1" : "map2");
+		repaint();
+	}
 	public void startGameThread() {
 		gameThread = new Thread(this);
 		gameThread.start();
