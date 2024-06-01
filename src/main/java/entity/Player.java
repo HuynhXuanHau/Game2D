@@ -24,27 +24,6 @@ public class Player extends Entity {
 	int shit=0,money=0,gold=0,item4=0,item5=0;
 
 
-	
-//	public Player(GamePanel gp, Entity entity, KeyHandler keyH, String name) {
-//		this.gp = gp;
-//		this.entity = entity;
-//		this.keyH = keyH;
-//		this.name = name ;
-//
-//		screenX = gp.screenWidth/2 -(gp.tileSize/2);
-//		screenY = gp.screenHeight/2 -(gp.tileSize/2);
-//
-//		solidArea = new Rectangle();
-//		solidArea.x = 8;
-//		solidArea.y = 15;
-//		solidAreaDefaultX = solidArea.x;
-//		solidAreaDefaultY = solidArea.y;
-//		solidArea.width = 31;
-//		solidArea.height = 32;
-//
-//		setDefaultValues();
-//		getPlayerImage();
-//	}
 	public Player(GamePanel gp, Entity entity, KeyHandler keyH) {
 		this.gp = gp;
 		this.entity = entity;
@@ -69,11 +48,19 @@ public class Player extends Entity {
 
 
 	public void setDefaultValues() {
-		houseX = gp.tileSize * 7;
-		houseY = gp.tileSize * 12;
-		speed = 4;
-		direction ="down";
+		if (gp.keyH.map1) {
+			houseX = gp.tileSize * 7;
+			houseY = gp.tileSize * 12;
+			speed = 4;
+			direction ="down";
+		} else {
+			houseX = gp.tileSize * 7;
+			houseY = gp.tileSize * 27;
+			speed = 4;
+			direction ="down";
+		}
 	}
+
 	
 	
 	public void getPlayerImage() {

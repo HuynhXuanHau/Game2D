@@ -19,8 +19,8 @@ public class GamePanel extends JPanel implements Runnable {
 	public TileManager tileM;
 
 	//HOUSE SETTING
-	public final int maxHouseCol = 35;
-	public final int maxHouseRow = 35;
+	public final int maxHouseCol = 43;
+	public final int maxHouseRow = 43;
 	public final int houseWidth = tileSize * maxHouseCol;
 	public final int houseHeight = tileSize * maxHouseRow;
 
