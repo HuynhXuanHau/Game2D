@@ -6,6 +6,9 @@ import dao.HightScoreDao;
 import net.miginfocom.swing.MigLayout;
 
 import java.awt.*;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -29,8 +32,10 @@ public class HightScoreBoard extends JPanel {
 		table.setRowHeight(30);
 		table.setGridColor(new Color(77, 36, 14)); // Set grid color to match background
 
+
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+		table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
 		for (int i = 1; i < table.getColumnCount(); i++) {
 			table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
 		}
@@ -60,16 +65,26 @@ public class HightScoreBoard extends JPanel {
 		add(panel);
 	}
 
-	public void loadHighScores(String map) {
-		model.setRowCount(0); // Clear existing rows
-		HightScoreDao dao = HightScoreDao.getInstance();
-		ArrayList<HightScoreB> scores = dao.selectByMap(map);
-		int place = 1;
-		for (HightScoreB score : scores) {
-			model.addRow(new Object[]{place, score.getNamePlayer(), score.getTime()});
-			place++;
-		}
-	}
+	public void loadHightScores() {
+		model.setRowCount(0);
+		try(Socket socket = new Socket("2001:ee0:4b48:79b0:8a01:f915:3250:2861", 12345);
+			ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+			ObjectInputStream in = new ObjectInputStream(socket.getInputStream()))		{
+
+			out.writeObject("GET_LEADERBOARD");
+			ArrayList<HightScoreB> list;
+            list = (ArrayList<HightScoreB>) in.readObject();
+			for (int i = 0; i <5; i++) {
+				HightScoreB score = list.get(i);
+				model.addRow(new Object[]{String.valueOf(i+1), score.getNamePlayer(), score.getTime(), score.getmap()});
+			}
+
+		} catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }
 
 class TableHeaderRenderer implements TableCellRenderer {

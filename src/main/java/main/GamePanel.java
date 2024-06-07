@@ -57,8 +57,8 @@ public class GamePanel extends JPanel implements Runnable {
 	public final HightScoreBoard highScoreBoard = new HightScoreBoard(this);
 	public JTextField playerNameTextField = new JTextField();;
 	public boolean checkNewGame = false;
-	
-	
+
+
 	
 	public GamePanel() {
 		this.tileM = new TileManager(this);
@@ -82,10 +82,13 @@ public class GamePanel extends JPanel implements Runnable {
 		gameState = titleState;
 		
 	}
+	public static final String resources = System.getProperty("user.dir") + "/src/main/resources/";
+
 	public void changeMap(boolean map1) {
 		this.keyH.map1 = map1;
-		tileM.loadMap(map1 ? "/res/map/mapp.txt" : "/res/map/mapp2.txt");
-		highScoreBoard.loadHighScores(map1 ? "map1" : "map2");
+		tileM.loadMap(map1 ?"res/map/mapp.txt" :"res/map/text.txt");
+		highScoreBoard.loadHightScores();
+//		highScoreBoard.loadHighScores(map1 ? "map1" : "map2");
 		repaint();
 	}
 	public void startGameThread() {

@@ -2,6 +2,7 @@ package main;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
 
@@ -371,7 +372,7 @@ public void drawSourceState() {
 		 //set icon cho cài đặt
 		 BufferedImage settingsIcon = null;
 		 try {
-			 settingsIcon = ImageIO.read(getClass().getResourceAsStream("/res/objects/icon.png"));  // Replace with your image path
+			 settingsIcon = ImageIO.read(new File(resources + "res/objects/icon.png"));  // Replace with your image path
 		 } catch (IOException e) {
 			 // Handle image loading error (e.g., print message)
 			 e.printStackTrace();
@@ -390,7 +391,7 @@ public void drawSourceState() {
 		 }
 
 	 }
-
+	public static final String resources = System.getProperty("user.dir") + "/src/main/resources/";
 	public void drawSettingState() {
 		// Vẽ nền cho màn hình cài đặt
 		g2.setColor(new Color(77, 36, 14));

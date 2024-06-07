@@ -3,6 +3,7 @@ package entity;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -61,18 +62,19 @@ public class Player extends Entity {
 		}
 	}
 
-	
-	
+
+	public static final String resources = System.getProperty("user.dir") + "/src/main/resources";
+
 	public void getPlayerImage() {
 		try {
-			up1 = ImageIO.read(getClass().getResourceAsStream("/res/player/Thiefup1.png"));
-			up2 = ImageIO.read(getClass().getResourceAsStream("/res/player/Thiefup2.png"));
-			down1= ImageIO.read(getClass().getResourceAsStream("/res/player/Thief1.png"));
-			down2= ImageIO.read(getClass().getResourceAsStream("/res/player/Thief2.png"));
-			left1= ImageIO.read(getClass().getResourceAsStream("/res/player/Thiefleft1.png"));
-			left2= ImageIO.read(getClass().getResourceAsStream("/res/player/Thiefleft2.png"));
-			right1= ImageIO.read(getClass().getResourceAsStream("/res/player/Thief1.png"));
-			right2= ImageIO.read(getClass().getResourceAsStream("/res/player/Thief1.png"));
+			up1 = ImageIO.read(new File(resources + "/res/player/Thiefup1.png"));
+			up2 = ImageIO.read(new File(resources +"/res/player/Thiefup2.png"));
+			down1= ImageIO.read(new File(resources +"/res/player/Thief1.png"));
+			down2= ImageIO.read(new File(resources +"/res/player/Thief2.png"));
+			left1= ImageIO.read(new File(resources +"/res/player/Thiefleft1.png"));
+			left2= ImageIO.read(new File(resources +"/res/player/Thiefleft2.png"));
+			right1= ImageIO.read(new File(resources +"/res/player/Thief1.png"));
+			right2= ImageIO.read(new File(resources +"/res/player/Thief2.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -19,7 +19,7 @@ public class HightScoreDao implements DaoInterface<HightScoreB>{
 	public int insert(HightScoreB hs) {
 		int kq = 0;
 		Connection c = null;
-		Statement st ;
+//		Statement st ;
 		try {
 			c = JDBCUtil.getConnection();
 			String sql = "INSERT INTO table2D(Name_Player, Time, map) VALUES(?, ?, ?);";
@@ -51,29 +51,6 @@ public class HightScoreDao implements DaoInterface<HightScoreB>{
 			return 0;
 	}
 
-//	@Override
-//	public ArrayList<HightScoreB> selectAll() {
-//		ArrayList<HightScoreB> ketqua = new ArrayList<HightScoreB>();
-//		try {
-//			Connection c = JDBCUtil.getConnection();
-//			Statement st = c.createStatement();
-//			String sql ="select * from table2D order by Time";
-//			ResultSet rs = st.executeQuery(sql);
-//			while (rs.next()) {
-//				String namePlayer = rs.getString("Name_Player");
-//				String playTime = rs.getString("Time");
-//
-//				HightScoreB hs = new HightScoreB(namePlayer, playTime);
-//				ketqua.add(hs);
-//			}
-//			JDBCUtil.closeConnection(c);
-//
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return ketqua;
-//	}
 
 	@Override
 	public ArrayList<HightScoreB> selectAll(String mappp) {

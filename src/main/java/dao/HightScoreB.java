@@ -1,6 +1,8 @@
 package dao;
 
-public class HightScoreB  {
+import java.io.Serializable;
+
+public class HightScoreB  implements Serializable {
 	private String namePlayer;
 	private String time;
 	private String map;

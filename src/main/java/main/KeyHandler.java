@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
+import dao.GameClient;
 import dao.HightScoreB;
 import dao.HightScoreDao;
 
@@ -13,8 +14,16 @@ public class KeyHandler extends KeyAdapter implements KeyListener {
 	GamePanel gp;
 	public boolean upPressed, downPressed, leftPressed, rightPressed, music= false;
 	public int dem=0;
-	public boolean map1= false;
-	public String map ="map2";
+	public boolean map1= true;
+	public String map ="map1";
+	public String getMap() {
+		return this.map;
+	}
+
+	public void setMap(String map) {
+		this.map = map;
+	}
+
 	@Override
 	public void keyTyped(KeyEvent e) {
 
@@ -167,20 +176,23 @@ public class KeyHandler extends KeyAdapter implements KeyListener {
 				//gp.drawHighScoreBoard =true;
 				gp.gameState= gp.hightState;
 				gp.highScoreBoard.setVisible(true);
-				ArrayList<HightScoreB> list = HightScoreDao.getInstance().selectAll(map);
-				int count = list.size();
-				gp.highScoreBoard.model.setRowCount(0);
-				if(count <=5) {
-				for (int i = 0; i <= count-1 ; i++) {
-					HightScoreB hsb = list.get(i);
-		           gp.highScoreBoard.model.addRow(new Object[]{String.valueOf(i+1),hsb.getNamePlayer(), hsb.getTime(),hsb.getmap()});
-		        }} else {
-					//gp.highScoreBoard.model.addRow(new Object[]{"Places", "Name Player", "Time","Map"});
-					for (int i = 0; i <5; i++) {
-						HightScoreB hsb = list.get(i);
-			           gp.highScoreBoard.model.addRow(new Object[]{String.valueOf(i+1),hsb.getNamePlayer(), hsb.getTime(),hsb.getmap()});
-				}
-				}
+				GameClient gameClient = new GameClient(gp);
+				gameClient.startGameClientThread();
+
+//			ArrayList<HightScoreB> list = HightScoreDao.getInstance().selectAll(map);
+//				int count = list.size();
+//				gp.highScoreBoard.model.setRowCount(0);
+//				if(count <=5) {
+//				for (int i = 0; i <= count-1 ; i++) {
+//					HightScoreB hsb = list.get(i);
+//		           gp.highScoreBoard.model.addRow(new Object[]{String.valueOf(i+1),hsb.getNamePlayer(), hsb.getTime(),hsb.getmap()});
+//		        }} else {
+//					//gp.highScoreBoard.model.addRow(new Object[]{"Places", "Name Player", "Time","Map"});
+//					for (int i = 0; i <5; i++) {
+//						HightScoreB hsb = list.get(i);
+//			           gp.highScoreBoard.model.addRow(new Object[]{String.valueOf(i+1),hsb.getNamePlayer(), hsb.getTime(),hsb.getmap()});
+//				}
+//				}
 			} else
 				if(gp.ui.commandNum==3) {
 					gp.gameState= gp.sourceState;
@@ -261,14 +273,16 @@ public class KeyHandler extends KeyAdapter implements KeyListener {
 				case 0:
 					System.out.println("commandNum = "+ gp.ui.commandNum);
 					map1= true;
-					map = "map1";
+					setMap( "map1");
+					System.out.println("New map: " + getMap());
 					gp.reloadMap();
 					gp.reloadobj();
 					break;
 				case 1:
 					System.out.println("commandNum = "+ gp.ui.commandNum);
 					map1= false;
-					map = "map2";
+					setMap( "map2");
+					System.out.println("New map: " + getMap());
 					gp.reloadMap();
 					gp.reloadobj();
 					break;

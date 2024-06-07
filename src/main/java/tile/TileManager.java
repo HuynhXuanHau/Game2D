@@ -1,9 +1,7 @@
 package tile;
 
 import java.awt.Graphics2D;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 
 import javax.imageio.ImageIO;
 
@@ -28,13 +26,15 @@ public class TileManager {
 		loadInitialMap();
 
 	}
+	public static final String resources = System.getProperty("user.dir") + "/src/main/resources/";
+
 	public void loadInitialMap() {
 		if (gp.keyH.map1) {
 			getTileImage();
-			loadMap("/res/map/mapp.txt");
+			loadMap("res/map/mapp.txt");
 		} else {
 			getTileImage();
-			loadMap("/res/map/text.txt"); // Assuming a second map files
+			loadMap("res/map/text.txt"); // Assuming a second map files
 		}
 	}
 
@@ -387,7 +387,7 @@ public class TileManager {
 			UtilityTool uTool = new UtilityTool();
 			try {
 				tile[index]= new Tile();
-				tile[index].image = ImageIO.read(getClass().getResourceAsStream( "/res/tiles/"+imageName+".png"));
+				tile[index].image = ImageIO.read(new File(resources + "res/tiles/" + imageName + ".png"));
 				tile[index].image = uTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
 				tile[index].collision = collision;
 			} catch (Exception e) {
@@ -396,7 +396,7 @@ public class TileManager {
 	}
 	public void loadMap(String filePath) {
 		try {
-			InputStream is = getClass().getResourceAsStream(filePath);
+			InputStream is = new FileInputStream(resources + filePath);
 			BufferedReader br = new BufferedReader( new InputStreamReader(is));
 			int col = 0;
 			int row = 0;
@@ -418,7 +418,7 @@ public class TileManager {
 			}
 			br.close();
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 	}
 

@@ -3,6 +3,9 @@ package main;
 
 
 
+import dao.GameClient;
+import dao.GameServer;
+
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -28,6 +31,9 @@ public class Main {
 		window.setVisible(true);
 		gamePanel.setupGame();
 		gamePanel.startGameThread();
-		
+
+		GameServer gameServer = new GameServer(gamePanel);
+		gameServer.startGameServerThread();
+
 	}
 }

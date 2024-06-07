@@ -1,9 +1,6 @@
 package dao;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 
 public class JDBCUtil {
@@ -31,17 +28,24 @@ public class JDBCUtil {
 			e.printStackTrace();
 		}
 	}
-	public static void printInfor(Connection c) {
-		if(c!= null) {
+	public static ResultSet getLeaderboard() throws SQLException {
+		Connection conn = getConnection();
+		Statement stmt = conn.createStatement();
+		return stmt.executeQuery("SELECT * FROM Leaderboard ORDER BY score DESC");
+	}
+	public static void closeStatement(Statement stmt) {
+		if (stmt != null) {
 			try {
-				DatabaseMetaData mtdt = c.getMetaData();
-				System.out.println(mtdt.getDatabaseProductName());
-				System.out.println(mtdt.getDatabaseProductVersion());
-				System.out.println("Driver name: " + mtdt.getDriverName());
-			      System.out.println("Driver version: " + mtdt.getDriverVersion());
-			      System.out.println("Product name: " + mtdt.getDatabaseProductName());
-			      System.out.println("Product version: " + mtdt.getDatabaseProductVersion());
-
+				stmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	public static void closeResultSet(ResultSet rs) {
+		if (rs != null) {
+			try {
+				rs.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
