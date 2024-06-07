@@ -34,6 +34,7 @@ public class GameClient implements Runnable {
     }
     @Override
     public void run() {
+            GameClient.changeMap(gamePanel.keyH.getMap());
             ArrayList<HightScoreB> leaderboard = getLeaderboard();
         	int count = leaderboard.size();
             gamePanel.highScoreBoard.model.setRowCount(0);
@@ -46,9 +47,22 @@ public class GameClient implements Runnable {
 						HightScoreB hsb = leaderboard.get(i);
                         gamePanel.highScoreBoard.model.addRow(new Object[]{String.valueOf(i+1),hsb.getNamePlayer(), hsb.getTime(),hsb.getmap()});
 				}}
+    }
+    public static void changeMap(String newMap) {
+        try (Socket socket = new Socket(HOST, PORT);
+             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+             ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
 
-
-
+            out.writeObject("CHANGE_MAP:" + newMap);
+            String response = (String) in.readObject();
+            if ("SUCCESS".equals(response)) {
+                System.out.println("Map changed successfully to " + newMap);
+            } else {
+                System.out.println("Failed to change map");
+            }
+        } catch (IOException | ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
     }
 
         public void startGameClientThread() {

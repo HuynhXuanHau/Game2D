@@ -178,21 +178,6 @@ public class KeyHandler extends KeyAdapter implements KeyListener {
 				gp.highScoreBoard.setVisible(true);
 				GameClient gameClient = new GameClient(gp);
 				gameClient.startGameClientThread();
-
-//			ArrayList<HightScoreB> list = HightScoreDao.getInstance().selectAll(map);
-//				int count = list.size();
-//				gp.highScoreBoard.model.setRowCount(0);
-//				if(count <=5) {
-//				for (int i = 0; i <= count-1 ; i++) {
-//					HightScoreB hsb = list.get(i);
-//		           gp.highScoreBoard.model.addRow(new Object[]{String.valueOf(i+1),hsb.getNamePlayer(), hsb.getTime(),hsb.getmap()});
-//		        }} else {
-//					//gp.highScoreBoard.model.addRow(new Object[]{"Places", "Name Player", "Time","Map"});
-//					for (int i = 0; i <5; i++) {
-//						HightScoreB hsb = list.get(i);
-//			           gp.highScoreBoard.model.addRow(new Object[]{String.valueOf(i+1),hsb.getNamePlayer(), hsb.getTime(),hsb.getmap()});
-//				}
-//				}
 			} else
 				if(gp.ui.commandNum==3) {
 					gp.gameState= gp.sourceState;

@@ -65,26 +65,6 @@ public class HightScoreBoard extends JPanel {
 		add(panel);
 	}
 
-	public void loadHightScores() {
-		model.setRowCount(0);
-		try(Socket socket = new Socket("2001:ee0:4b48:79b0:8a01:f915:3250:2861", 12345);
-			ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
-			ObjectInputStream in = new ObjectInputStream(socket.getInputStream()))		{
-
-			out.writeObject("GET_LEADERBOARD");
-			ArrayList<HightScoreB> list;
-            list = (ArrayList<HightScoreB>) in.readObject();
-			for (int i = 0; i <5; i++) {
-				HightScoreB score = list.get(i);
-				model.addRow(new Object[]{String.valueOf(i+1), score.getNamePlayer(), score.getTime(), score.getmap()});
-			}
-
-		} catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-
 }
 
 class TableHeaderRenderer implements TableCellRenderer {

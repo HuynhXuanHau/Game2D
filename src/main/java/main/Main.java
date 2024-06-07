@@ -32,7 +32,7 @@ public class Main {
 		gamePanel.setupGame();
 		gamePanel.startGameThread();
 
-		GameServer gameServer = new GameServer(gamePanel);
+		GameServer gameServer = new GameServer(gamePanel.keyH);
 		gameServer.startGameServerThread();
 
 	}

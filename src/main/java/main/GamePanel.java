@@ -84,13 +84,6 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 	public static final String resources = System.getProperty("user.dir") + "/src/main/resources/";
 
-	public void changeMap(boolean map1) {
-		this.keyH.map1 = map1;
-		tileM.loadMap(map1 ?"res/map/mapp.txt" :"res/map/text.txt");
-		highScoreBoard.loadHightScores();
-//		highScoreBoard.loadHighScores(map1 ? "map1" : "map2");
-		repaint();
-	}
 	public void startGameThread() {
 		gameThread = new Thread(this);
 		gameThread.start();
