@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
 
 import main.GamePanel;
 import main.KeyHandler;
-import object.OBJ_Random;
+
 
 public class Player extends Entity {
 	GamePanel gp;

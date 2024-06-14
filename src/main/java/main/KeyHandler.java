@@ -3,11 +3,9 @@ package main;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
+
 
 import dao.GameClient;
-import dao.HightScoreB;
-import dao.HightScoreDao;
 
 public class KeyHandler extends KeyAdapter implements KeyListener {
 	

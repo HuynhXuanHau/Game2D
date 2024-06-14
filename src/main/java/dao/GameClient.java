@@ -10,7 +10,7 @@ import java.io.*;
 
 
 public class GameClient implements Runnable {
-    private static final String HOST = "2001:ee0:4b48:79b0:8a01:f915:3250:2861";
+    private static final String HOST = "2001:ee0:4b42:4810:6de7:de8e:1816:21d0";
     private static final int PORT = 12345;
     GamePanel gamePanel;
     Thread gameClientThread;

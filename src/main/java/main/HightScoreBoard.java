@@ -1,15 +1,9 @@
 package main;
 
-import com.formdev.flatlaf.ui.FlatTableUI;
-import dao.HightScoreB;
-import dao.HightScoreDao;
 import net.miginfocom.swing.MigLayout;
 
 import java.awt.*;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
-import java.util.ArrayList;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;

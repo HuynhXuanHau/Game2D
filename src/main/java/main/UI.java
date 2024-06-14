@@ -372,7 +372,7 @@ public void drawSourceState() {
 		 //set icon cho cài đặt
 		 BufferedImage settingsIcon = null;
 		 try {
-			 settingsIcon = ImageIO.read(new File(resources + "res/objects/icon.png"));  // Replace with your image path
+			 settingsIcon = ImageIO.read(new File(resources + "res/objects/settings-17-16.png"));  // Replace with your image path
 		 } catch (IOException e) {
 			 // Handle image loading error (e.g., print message)
 			 e.printStackTrace();
@@ -385,6 +385,7 @@ public void drawSourceState() {
 			 int iconY = buttonY + (buttonHeight - iconHeight) / 2;  // Center the icon
 			 g2.drawImage(settingsIcon, iconX, iconY, null);
 		 }
+
 
 		 if(commandNum == 5) {
 			 g2.drawString(">", buttonX - gp.tileSize/2, buttonY*3);
